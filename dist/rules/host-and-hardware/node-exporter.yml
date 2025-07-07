@@ -68,8 +68,8 @@ groups:
         description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostDiskMayFillIn24Hours
-      expr: 'predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0'
-      for: 2m
+      expr: 'predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[8h], 86400) <= 0 and node_filesystem_avail_bytes > 0'
+      for: 1h
       labels:
         severity: warning
       annotations:
@@ -95,8 +95,8 @@ groups:
         description: "Error stat-ing the {{ $labels.mountpoint }} filesystem\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostInodesMayFillIn24Hours
-      expr: 'predict_linear(node_filesystem_files_free{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[1h], 86400) <= 0 and node_filesystem_files_free > 0'
-      for: 2m
+      expr: 'predict_linear(node_filesystem_files_free{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[8h], 86400) <= 0 and node_filesystem_files_free > 0'
+      for: 1h
       labels:
         severity: warning
       annotations:
@@ -130,15 +130,6 @@ groups:
         summary: Host high CPU load (instance {{ $labels.instance }})
         description: "CPU load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-    - alert: HostCpuIsUnderutilized
-      expr: '(min by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1h]))) > 0.8'
-      for: 1w
-      labels:
-        severity: info
-      annotations:
-        summary: Host CPU is underutilized (instance {{ $labels.instance }})
-        description: "CPU load has been < 20% for 1 week. Consider reducing the number of CPUs.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
     - alert: HostCpuStealNoisyNeighbor
       expr: 'avg by(instance) (rate(node_cpu_seconds_total{mode="steal"}[5m])) * 100 > 10'
       for: 0m
@@ -149,13 +140,13 @@ groups:
         description: "CPU steal is > 10%. A noisy neighbor is killing VM performances or a spot instance may be out of credit.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostCpuHighIowait
-      expr: 'avg by (instance) (rate(node_cpu_seconds_total{mode="iowait"}[5m])) > .10'
+      expr: 'avg by (instance) (rate(node_cpu_seconds_total{mode="iowait"}[10m])) > .20'
       for: 0m
       labels:
         severity: warning
       annotations:
-        summary: Host CPU high iowait (instance {{ $labels.instance }})
-        description: "CPU iowait > 10%. Your CPU is idling waiting for storage to respond.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ $labels.alias }}: Host CPU high iowait"
+        description: "CPU iowait > 20%. Your CPU is idling waiting for storage to respond.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostUnusualDiskIo
       expr: 'rate(node_disk_io_time_seconds_total[5m]) > 0.8'
@@ -266,8 +257,8 @@ groups:
         description: "Host {{ $labels.instance }} has had {{ printf \"%.0f\" $value }} uncorrectable memory errors reported by EDAC in the last 5 minutes.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostNetworkReceiveErrors
-      expr: '(rate(node_network_receive_errs_total[2m]) / rate(node_network_receive_packets_total[2m]) > 0.01)'
-      for: 2m
+      expr: '(rate(node_network_receive_errs_total[5m]) / rate(node_network_receive_packets_total[5m]) > 1)'
+      for: 5m
       labels:
         severity: warning
       annotations:
@@ -275,8 +266,8 @@ groups:
         description: "Host {{ $labels.instance }} interface {{ $labels.device }} has encountered {{ printf \"%.0f\" $value }} receive errors in the last two minutes.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostNetworkTransmitErrors
-      expr: '(rate(node_network_transmit_errs_total[2m]) / rate(node_network_transmit_packets_total[2m]) > 0.01)'
-      for: 2m
+      expr: '(rate(node_network_transmit_errs_total[5m]) / rate(node_network_transmit_packets_total[5m]) > 1)'
+      for: 5m
       labels:
         severity: warning
       annotations:
