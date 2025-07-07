@@ -173,7 +173,7 @@ groups:
                 for: 2m
               - name: Host disk may fill in 24 hours
                 description: Filesystem will likely run out of space within the next 24 hours.
-                query: 'predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_avail_bytes > 0'
+                query: 'predict_linear(node_filesystem_avail_bytes{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[4h], 86400) <= 0 and node_filesystem_avail_bytes > 0'
                 severity: warning
                 comments: |
                   Please add ignored mountpoints in node_exporter parameters like
@@ -192,7 +192,7 @@ groups:
                 for: 2m
               - name: Host inodes may fill in 24 hours
                 description: Filesystem will likely run out of inodes within the next 24 hours at current write rate
-                query: 'predict_linear(node_filesystem_files_free{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[1h], 86400) <= 0 and node_filesystem_files_free > 0'
+                query: 'predict_linear(node_filesystem_files_free{fstype!~"^(fuse.*|tmpfs|cifs|nfs)"}[3h], 86400) <= 0 and node_filesystem_files_free > 0'
                 severity: warning
                 for: 2m
               - name: Host unusual disk read latency
@@ -210,20 +210,13 @@ groups:
                 query: '1 - (avg by (instance) (rate(node_cpu_seconds_total{mode="idle"}[5m]))) > .80'
                 severity: warning
                 for: 10m
-              - name: Host CPU is underutilized
-                description: "CPU load has been < 20% for 1 week. Consider reducing the number of CPUs."
-                query: '(min by (instance) (rate(node_cpu_seconds_total{mode="idle"}[1h]))) > 0.8'
-                severity: info
-                for: 1w
-                comments: |
-                  You may want to increase the alert manager 'repeat_interval' for this type of alert to daily or weekly
               - name: Host CPU steal noisy neighbor
                 description: CPU steal is > 10%. A noisy neighbor is killing VM performances or a spot instance may be out of credit.
                 query: 'avg by(instance) (rate(node_cpu_seconds_total{mode="steal"}[5m])) * 100 > 10'
                 severity: warning
               - name: Host CPU high iowait
                 description: CPU iowait > 10%. Your CPU is idling waiting for storage to respond.
-                query: 'avg by (instance) (rate(node_cpu_seconds_total{mode="iowait"}[5m])) > .10'
+                query: 'avg by (instance) (rate(node_cpu_seconds_total{mode="iowait"}[10m])) > .10'
                 severity: warning
               - name: Host unusual disk IO
                 description: "Disk usage >80%. Check storage for issues or increase IOPS capabilities. Check storage for issues."
