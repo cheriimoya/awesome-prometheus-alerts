@@ -95,7 +95,7 @@ $ wget https://raw.githubusercontent.com/samber/awesome-prometheus-alerts/refs/h
     labels:
       severity: {{ rule.severity }}
     annotations:
-      summary: {{ rule.name }} (instance {% raw %}{{ $labels.instance }}{% endraw %})
+      summary: {% raw %}{{ $labels.alias }}{% endraw %}: {{ rule.name }}
       description: "{{ rule.description | replace: '"', '\"' }}\n  VALUE = {% raw %}{{ $value }}{% endraw %}\n  LABELS = {% raw %}{{ $labels }}{% endraw %}"
 
 {% endhighlight %}
