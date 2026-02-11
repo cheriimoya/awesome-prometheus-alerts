@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra hints count (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra hints count"
         description: "Cassandra hints count has changed on {{ $labels.instance }} some nodes may go down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraCompactionTaskPending
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra compaction task pending (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra compaction task pending"
         description: "Many Cassandra compaction tasks are pending. You might need to increase I/O capacity by adding nodes to the cluster.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraViewwriteLatency
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra viewwrite latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra viewwrite latency"
         description: "High viewwrite latency on {{ $labels.instance }} cassandra node\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraBadHacker
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra bad hacker (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra bad hacker"
         description: "Increase of Cassandra authentication failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraNodeDown
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra node down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra node down"
         description: "Cassandra node down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraCommitlogPendingTasks
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra commitlog pending tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra commitlog pending tasks"
         description: "Unexpected number of Cassandra commitlog pending tasks\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraCompactionExecutorBlockedTasks
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra compaction executor blocked tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra compaction executor blocked tasks"
         description: "Some Cassandra compaction executor tasks are blocked\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraFlushWriterBlockedTasks
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra flush writer blocked tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra flush writer blocked tasks"
         description: "Some Cassandra flush writer tasks are blocked\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraRepairPendingTasks
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra repair pending tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra repair pending tasks"
         description: "Some Cassandra repair tasks are pending\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraRepairBlockedTasks
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Cassandra repair blocked tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra repair blocked tasks"
         description: "Some Cassandra repair tasks are blocked\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraConnectionTimeoutsTotal
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra connection timeouts total (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra connection timeouts total"
         description: "Some connection between nodes are ending in timeout\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraStorageExceptions
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra storage exceptions (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra storage exceptions"
         description: "Something is going wrong with cassandra storage\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraTombstoneDump
@@ -118,7 +118,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra tombstone dump (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra tombstone dump"
         description: "Too much tombstones scanned in queries\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraClientRequestUnavailableWrite
@@ -127,7 +127,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra client request unavailable write (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra client request unavailable write"
         description: "Write failures have occurred because too many nodes are unavailable\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraClientRequestUnavailableRead
@@ -136,7 +136,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra client request unavailable read (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra client request unavailable read"
         description: "Read failures have occurred because too many nodes are unavailable\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraClientRequestWriteFailure
@@ -145,7 +145,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra client request write failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra client request write failure"
         description: "A lot of write failures encountered. A write failure is a non-timeout exception encountered during a write request. Examine the reason map to find to the root cause. The most common cause for this type of error is when batch sizes are too large.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraClientRequestReadFailure
@@ -154,7 +154,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra client request read failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra client request read failure"
         description: "A lot of read failures encountered. A read failure is a non-timeout exception encountered during a read request. Examine the reason map to find to the root cause. The most common cause for this type of error is when batch sizes are too large.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: CassandraCacheHitRateKeyCache
@@ -163,5 +163,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Cassandra cache hit rate key cache (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Cassandra cache hit rate key cache"
         description: "Key cache hit rate is below 85%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

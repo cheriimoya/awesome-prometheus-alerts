@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Jenkins offline (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins offline"
         description: "Jenkins offline: `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsHealthcheck
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Jenkins healthcheck (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins healthcheck"
         description: "Jenkins healthcheck score: {{$value}}. Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsOutdatedPlugins
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Jenkins outdated plugins (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins outdated plugins"
         description: "{{ $value }} plugins need update\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsBuildsHealthScore
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Jenkins builds health score (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins builds health score"
         description: "Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsRunFailureTotal
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Jenkins run failure total (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins run failure total"
         description: "Job run failures: ({{$value}}) {{$labels.jenkins_job}}. Healthcheck failure for `{{$labels.instance}}` in realm {{$labels.realm}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsBuildTestsFailing
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Jenkins build tests failing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins build tests failing"
         description: "Last build tests failed: {{$labels.jenkins_job}}. Failed build Tests for job `{{$labels.jenkins_job}}` on {{$labels.instance}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JenkinsLastBuildFailed
@@ -64,5 +64,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Jenkins last build failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Jenkins last build failed"
         description: "Last build failed: {{$labels.jenkins_job}}. Failed build for job `{{$labels.jenkins_job}}` on {{$labels.instance}}/{{$labels.env}} ({{$labels.region}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

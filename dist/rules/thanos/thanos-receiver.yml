@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Receive Http Request Error Rate High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive Http Request Error Rate High"
         description: "Thanos Receive {{$labels.job}} is failing to handle {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveHttpRequestLatencyHigh
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Receive Http Request Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive Http Request Latency High"
         description: "Thanos Receive {{$labels.job}} has a 99th percentile latency of {{ $value }} seconds for requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveHighReplicationFailures
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Receive High Replication Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive High Replication Failures"
         description: "Thanos Receive {{$labels.job}} is failing to replicate {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveHighForwardRequestFailures
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Thanos Receive High Forward Request Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive High Forward Request Failures"
         description: "Thanos Receive {{$labels.job}} is failing to forward {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveHighHashringFileRefreshFailures
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Receive High Hashring File Refresh Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive High Hashring File Refresh Failures"
         description: "Thanos Receive {{$labels.job}} is failing to refresh hashring file, {{$value | humanize}} of attempts failed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveConfigReloadFailure
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Receive Config Reload Failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive Config Reload Failure"
         description: "Thanos Receive {{$labels.job}} has not been able to reload hashring configurations.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveNoUpload
@@ -64,5 +64,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Receive No Upload (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive No Upload"
         description: "Thanos Receive {{$labels.instance}} has not uploaded latest data to object storage.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

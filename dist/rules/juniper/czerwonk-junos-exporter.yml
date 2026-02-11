@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Juniper switch down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Juniper switch down"
         description: "The switch appears to be down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JuniperHighBandwidthUsage1gib
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Juniper high Bandwidth Usage 1GiB (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Juniper high Bandwidth Usage 1GiB"
         description: "Interface is highly saturated. (> 0.90GiB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: JuniperHighBandwidthUsage1gib
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Juniper high Bandwidth Usage 1GiB (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Juniper high Bandwidth Usage 1GiB"
         description: "Interface is getting saturated. (> 0.80GiB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

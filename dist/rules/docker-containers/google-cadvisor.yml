@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container killed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container killed"
         description: "A container has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerAbsent
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container absent (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container absent"
         description: "A container is absent for 5 min\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerHighCpuUtilization
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container High CPU utilization (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container High CPU utilization"
         description: "Container CPU utilization is above 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerHighMemoryUsage
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container High Memory usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container High Memory usage"
         description: "Container Memory usage is above 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerVolumeUsage
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container Volume usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container Volume usage"
         description: "Container Volume usage is above 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerHighThrottleRate
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Container high throttle rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container high throttle rate"
         description: "Container is being throttled\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerHighLowChangeCpuUsage
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Container high low change CPU usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container high low change CPU usage"
         description: "This alert rule monitors the absolute change in CPU usage within a time window and triggers an alert when the change exceeds 25%.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerLowCpuUtilization
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Container Low CPU utilization (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container Low CPU utilization"
         description: "Container CPU utilization is under 20% for 1 week. Consider reducing the allocated CPU.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ContainerLowMemoryUsage
@@ -82,5 +82,6 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Container Low Memory usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Container Low Memory usage"
         description: "Container Memory usage is under 20% for 1 week. Consider reducing the allocated memory.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

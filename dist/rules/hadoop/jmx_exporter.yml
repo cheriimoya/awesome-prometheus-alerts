@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Name Node Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop Name Node Down"
         description: "The Hadoop NameNode service is unavailable.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopResourceManagerDown
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Resource Manager Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop Resource Manager Down"
         description: "The Hadoop ResourceManager service is unavailable.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopDataNodeOutOfService
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop Data Node Out Of Service (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop Data Node Out Of Service"
         description: "The Hadoop DataNode is not sending heartbeats.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopHdfsDiskSpaceLow
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HDFS Disk Space Low (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop HDFS Disk Space Low"
         description: "Available HDFS disk space is running low.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopMapReduceTaskFailures
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Map Reduce Task Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop Map Reduce Task Failures"
         description: "There is an unusually high number of MapReduce task failures.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopResourceManagerMemoryHigh
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop Resource Manager Memory High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop Resource Manager Memory High"
         description: "The Hadoop ResourceManager is approaching its memory limit.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopYarnContainerAllocationFailures
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop YARN Container Allocation Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop YARN Container Allocation Failures"
         description: "There is a significant number of YARN container allocation failures.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopHbaseRegionCountHigh
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HBase Region Count High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop HBase Region Count High"
         description: "The HBase cluster has an unusually high number of regions.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopHbaseRegionServerHeapLow
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop HBase Region Server Heap Low (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop HBase Region Server Heap Low"
         description: "HBase Region Servers are running low on heap space.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HadoopHbaseWriteRequestsLatencyHigh
@@ -91,5 +91,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HBase Write Requests Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Hadoop HBase Write Requests Latency High"
         description: "HBase Write Requests are experiencing high latency.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

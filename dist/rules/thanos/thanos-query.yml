@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Http Request Query Error Rate High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Http Request Query Error Rate High"
         description: "Thanos Query {{$labels.job}} is failing to handle {{$value | humanize}}% of \"query\" requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryHttpRequestQueryRangeErrorRateHigh
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Http Request Query Range Error Rate High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Http Request Query Range Error Rate High"
         description: "Thanos Query {{$labels.job}} is failing to handle {{$value | humanize}}% of \"query_range\" requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryGrpcServerErrorRate
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Query Grpc Server Error Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Grpc Server Error Rate"
         description: "Thanos Query {{$labels.job}} is failing to handle {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryGrpcClientErrorRate
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Query Grpc Client Error Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Grpc Client Error Rate"
         description: "Thanos Query {{$labels.job}} is failing to send {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryHighDNSFailures
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Query High D N S Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query High D N S Failures"
         description: "Thanos Query {{$labels.job}} have {{$value | humanize}}% of failing DNS queries for store endpoints.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryInstantLatencyHigh
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Instant Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Instant Latency High"
         description: "Thanos Query {{$labels.job}} has a 99th percentile latency of {{$value}} seconds for instant queries.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryRangeLatencyHigh
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Range Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Range Latency High"
         description: "Thanos Query {{$labels.job}} has a 99th percentile latency of {{$value}} seconds for range queries.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryOverload
@@ -73,5 +73,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Query Overload (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Overload"
         description: "Thanos Query {{$labels.job}} has been overloaded for more than 15 minutes. This may be a symptom of excessive simultanous complex requests, low performance of the Prometheus API, or failures within these components. Assess the health of the Thanos query instances, the connnected Prometheus instances, look for potential senders of these requests and then contact support.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

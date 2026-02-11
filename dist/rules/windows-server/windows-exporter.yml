@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Windows Server collector Error (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Windows Server collector Error"
         description: "Collector {{ $labels.collector }} was not successful\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: WindowsServerServiceStatus
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Windows Server service Status (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Windows Server service Status"
         description: "Windows Service state is not OK\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: WindowsServerCpuUsage
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Windows Server CPU Usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Windows Server CPU Usage"
         description: "CPU Usage is more than 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: WindowsServerMemoryUsage
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Windows Server memory Usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Windows Server memory Usage"
         description: "Memory usage is more than 90%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: WindowsServerDiskSpaceUsage
@@ -46,5 +46,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Windows Server disk Space Usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Windows Server disk Space Usage"
         description: "Disk usage is more than 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

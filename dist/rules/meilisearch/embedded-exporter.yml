@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Meilisearch index is empty (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Meilisearch index is empty"
         description: "Meilisearch instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MeilisearchHttpResponseTime
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Meilisearch http response time (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Meilisearch http response time"
         description: "Meilisearch http response time is too high\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nomad job failed"
         description: "Nomad job failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NomadJobLost
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job lost (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nomad job lost"
         description: "Nomad job lost\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NomadJobQueued
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job queued (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nomad job queued"
         description: "Nomad job queued\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NomadBlockedEvaluation
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad blocked evaluation (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nomad blocked evaluation"
         description: "Nomad blocked evaluation\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Rule Queue Is Dropping Alerts (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Queue Is Dropping Alerts"
         description: "Thanos Rule {{$labels.instance}} is failing to queue alerts.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleSenderIsFailingAlerts
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Rule Sender Is Failing Alerts (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Sender Is Failing Alerts"
         description: "Thanos Rule {{$labels.instance}} is failing to send alerts to alertmanager.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleHighRuleEvaluationFailures
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Rule High Rule Evaluation Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule High Rule Evaluation Failures"
         description: "Thanos Rule {{$labels.instance}} is failing to evaluate rules.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleHighRuleEvaluationWarnings
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Thanos Rule High Rule Evaluation Warnings (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule High Rule Evaluation Warnings"
         description: "Thanos Rule {{$labels.instance}} has high number of evaluation warnings.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleRuleEvaluationLatencyHigh
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Rule Rule Evaluation Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Rule Evaluation Latency High"
         description: "Thanos Rule {{$labels.instance}} has higher evaluation latency than interval for {{$labels.rule_group}}.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleGrpcErrorRate
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Rule Grpc Error Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Grpc Error Rate"
         description: "Thanos Rule {{$labels.job}} is failing to handle {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleConfigReloadFailure
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Thanos Rule Config Reload Failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Config Reload Failure"
         description: "Thanos Rule {{$labels.job}} has not been able to reload its configuration.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleQueryHighDNSFailures
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Rule Query High D N S Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Query High D N S Failures"
         description: "Thanos Rule {{$labels.job}} has {{$value | humanize}}% of failing DNS queries for query endpoints.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleAlertmanagerHighDNSFailures
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Rule Alertmanager High D N S Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Alertmanager High D N S Failures"
         description: "Thanos Rule {{$labels.instance}} has {{$value | humanize}}% of failing DNS queries for Alertmanager endpoints.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleNoEvaluationFor10Intervals
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Thanos Rule No Evaluation For10 Intervals (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule No Evaluation For10 Intervals"
         description: "Thanos Rule {{$labels.job}} has rule groups that did not evaluate for at least 10x of their expected interval.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosNoRuleEvaluations
@@ -100,5 +100,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos No Rule Evaluations (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos No Rule Evaluations"
         description: "Thanos Rule {{$labels.instance}} did not perform any rule evaluations in the past 10 minutes.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

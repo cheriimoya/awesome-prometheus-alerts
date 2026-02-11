@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Kafka topics replicas (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Kafka topics replicas"
         description: "Kafka topic in-sync partition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: KafkaConsumersGroup
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Kafka consumers group (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Kafka consumers group"
         description: "Kafka consumers group\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

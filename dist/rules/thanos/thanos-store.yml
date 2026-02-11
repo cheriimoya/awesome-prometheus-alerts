@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Store Grpc Error Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Store Grpc Error Rate"
         description: "Thanos Store {{$labels.job}} is failing to handle {{$value | humanize}}% of requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosStoreSeriesGateLatencyHigh
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Store Series Gate Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Store Series Gate Latency High"
         description: "Thanos Store {{$labels.job}} has a 99th percentile latency of {{$value}} seconds for store series gate requests.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosStoreBucketHighOperationFailures
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Store Bucket High Operation Failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Store Bucket High Operation Failures"
         description: "Thanos Store {{$labels.job}} Bucket is failing to execute {{$value | humanize}}% of operations.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosStoreObjstoreOperationLatencyHigh
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Thanos Store Objstore Operation Latency High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Store Objstore Operation Latency High"
         description: "Thanos Store {{$labels.job}} Bucket has a 99th percentile latency of {{$value}} seconds for the bucket operations.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

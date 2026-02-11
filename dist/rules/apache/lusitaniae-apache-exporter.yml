@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Apache down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Apache down"
         description: "Apache down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ApacheWorkersLoad
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Apache workers load (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Apache workers load"
         description: "Apache workers in busy state approach the max workers count 80% workers busy on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ApacheRestart
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Apache restart (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Apache restart"
         description: "Apache has just been restarted.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

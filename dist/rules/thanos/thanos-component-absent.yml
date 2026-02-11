@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Compact Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Compact Is Down"
         description: "ThanosCompact has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosQueryIsDown
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Query Is Down"
         description: "ThanosQuery has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosReceiveIsDown
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Receive Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Receive Is Down"
         description: "ThanosReceive has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosRuleIsDown
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Rule Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Rule Is Down"
         description: "ThanosRule has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosSidecarIsDown
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Sidecar Is Down"
         description: "ThanosSidecar has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosStoreIsDown
@@ -55,5 +55,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Store Is Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Store Is Down"
         description: "ThanosStore has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

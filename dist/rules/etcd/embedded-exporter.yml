@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Etcd insufficient Members (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd insufficient Members"
         description: "Etcd cluster should have an odd number of members\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdNoLeader
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Etcd no Leader (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd no Leader"
         description: "Etcd cluster have no leader\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfLeaderChanges
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high number of leader changes (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of leader changes"
         description: "Etcd leader changed more than 2 times during 10 minutes\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfFailedGrpcRequests
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high number of failed GRPC requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of failed GRPC requests"
         description: "More than 1% GRPC request failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfFailedGrpcRequests
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Etcd high number of failed GRPC requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of failed GRPC requests"
         description: "More than 5% GRPC request failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdGrpcRequestsSlow
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd GRPC requests slow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd GRPC requests slow"
         description: "GRPC requests slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfFailedHttpRequests
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high number of failed HTTP requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of failed HTTP requests"
         description: "More than 1% HTTP failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfFailedHttpRequests
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Etcd high number of failed HTTP requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of failed HTTP requests"
         description: "More than 5% HTTP failure detected in Etcd\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHttpRequestsSlow
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd HTTP requests slow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd HTTP requests slow"
         description: "HTTP requests slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdMemberCommunicationSlow
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd member communication slow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd member communication slow"
         description: "Etcd member communication slowing down, 99th percentile is over 0.15s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighNumberOfFailedProposals
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high number of failed proposals (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high number of failed proposals"
         description: "Etcd server got more than 5 failed proposals past hour\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighFsyncDurations
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high fsync durations (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high fsync durations"
         description: "Etcd WAL fsync duration increasing, 99th percentile is over 0.5s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: EtcdHighCommitDurations
@@ -118,5 +118,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Etcd high commit durations (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Etcd high commit durations"
         description: "Etcd commit duration increasing, 99th percentile is over 0.25s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

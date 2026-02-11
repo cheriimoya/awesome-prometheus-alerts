@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Nginx high HTTP 4xx error rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nginx high HTTP 4xx error rate"
         description: "Too many HTTP requests with status 4xx (> 5%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NginxHighHttp5xxErrorRate
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Nginx high HTTP 5xx error rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nginx high HTTP 5xx error rate"
         description: "Too many HTTP requests with status 5xx (> 5%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NginxLatencyHigh
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nginx latency high (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Nginx latency high"
         description: "Nginx p99 latency is higher than 3 seconds\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

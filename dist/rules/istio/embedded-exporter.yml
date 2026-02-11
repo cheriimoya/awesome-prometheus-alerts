@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio Kubernetes gateway availability drop (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio Kubernetes gateway availability drop"
         description: "Gateway pods have dropped. Inbound traffic will likely be affected.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioPilotHighTotalRequestRate
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio Pilot high total request rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio Pilot high total request rate"
         description: "Number of Istio Pilot push errors is too high (> 5%). Envoy sidecars might have outdated configuration.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioMixerPrometheusDispatchesLow
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio Mixer Prometheus dispatches low (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio Mixer Prometheus dispatches low"
         description: "Number of Mixer dispatches to Prometheus is too low. Istio metrics might not be being exported properly.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioHighTotalRequestRate
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio high total request rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio high total request rate"
         description: "Global request rate in the service mesh is unusually high.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioLowTotalRequestRate
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio low total request rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio low total request rate"
         description: "Global request rate in the service mesh is unusually low.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioHigh4xxErrorRate
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio high 4xx error rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio high 4xx error rate"
         description: "High percentage of HTTP 4xx responses in Istio (> 5%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioHigh5xxErrorRate
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio high 5xx error rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio high 5xx error rate"
         description: "High percentage of HTTP 5xx responses in Istio (> 5%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioHighRequestLatency
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio high request latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio high request latency"
         description: "Istio average requests execution is longer than 100ms.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioLatency99Percentile
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Istio latency 99 percentile (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio latency 99 percentile"
         description: "Istio 1% slowest requests are longer than 1000ms.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: IstioPilotDuplicateEntry
@@ -91,5 +91,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Istio Pilot Duplicate Entry (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Istio Pilot Duplicate Entry"
         description: "Istio pilot duplicate entry error.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

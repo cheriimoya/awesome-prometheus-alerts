@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus job missing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus job missing"
         description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTargetMissing
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus target missing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus target missing"
         description: "A Prometheus target has disappeared. An exporter might be crashed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAllTargetsMissing
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus all targets missing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus all targets missing"
         description: "A Prometheus job does not have living target anymore.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTargetMissingWithWarmupTime
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus target missing with warmup time (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus target missing with warmup time"
         description: "Allow a job time to start up (10 minutes) before alerting that it's down.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusConfigurationReloadFailure
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus configuration reload failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus configuration reload failure"
         description: "Prometheus configuration reload error\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTooManyRestarts
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus too many restarts (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus too many restarts"
         description: "Prometheus has restarted more than twice in the last 15 minutes. It might be crashlooping.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAlertmanagerJobMissing
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus AlertManager job missing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus AlertManager job missing"
         description: "A Prometheus AlertManager job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAlertmanagerConfigurationReloadFailure
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus AlertManager configuration reload failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus AlertManager configuration reload failure"
         description: "AlertManager configuration reload error\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAlertmanagerConfigNotSynced
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus AlertManager config not synced (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus AlertManager config not synced"
         description: "Configurations of AlertManager cluster instances are out of sync\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAlertmanagerE2eDeadManSwitch
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus AlertManager E2E dead man switch (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus AlertManager E2E dead man switch"
         description: "Prometheus DeadManSwitch is an always-firing alert. It's used as an end-to-end test of Prometheus through the Alertmanager.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusNotConnectedToAlertmanager
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus not connected to alertmanager (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus not connected to alertmanager"
         description: "Prometheus cannot connect the alertmanager\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusRuleEvaluationFailures
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus rule evaluation failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus rule evaluation failures"
         description: "Prometheus encountered {{ $value }} rule evaluation failures, leading to potentially ignored alerts.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTemplateTextExpansionFailures
@@ -118,7 +118,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus template text expansion failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus template text expansion failures"
         description: "Prometheus encountered {{ $value }} template text expansion failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusRuleEvaluationSlow
@@ -127,7 +127,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus rule evaluation slow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus rule evaluation slow"
         description: "Prometheus rule evaluation took more time than the scheduled interval. It indicates a slower storage backend access or too complex query.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusNotificationsBacklog
@@ -136,7 +136,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus notifications backlog (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus notifications backlog"
         description: "The Prometheus notification queue has not been empty for 10 minutes\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusAlertmanagerNotificationFailing
@@ -145,7 +145,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus AlertManager notification failing (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus AlertManager notification failing"
         description: "Alertmanager is failing sending notifications\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTargetEmpty
@@ -154,7 +154,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus target empty (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus target empty"
         description: "Prometheus has no target in service discovery\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTargetScrapingSlow
@@ -163,7 +163,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus target scraping slow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus target scraping slow"
         description: "Prometheus is scraping exporters slowly since it exceeded the requested interval time. Your Prometheus server is under-provisioned.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusLargeScrape
@@ -172,7 +172,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus large scrape (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus large scrape"
         description: "Prometheus has many scrapes that exceed the sample limit\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTargetScrapeDuplicate
@@ -181,7 +181,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus target scrape duplicate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus target scrape duplicate"
         description: "Prometheus has many samples rejected due to duplicate timestamps but different values\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbCheckpointCreationFailures
@@ -190,7 +190,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB checkpoint creation failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB checkpoint creation failures"
         description: "Prometheus encountered {{ $value }} checkpoint creation failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbCheckpointDeletionFailures
@@ -199,7 +199,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB checkpoint deletion failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB checkpoint deletion failures"
         description: "Prometheus encountered {{ $value }} checkpoint deletion failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbCompactionsFailed
@@ -208,7 +208,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB compactions failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB compactions failed"
         description: "Prometheus encountered {{ $value }} TSDB compactions failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbHeadTruncationsFailed
@@ -217,7 +217,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB head truncations failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB head truncations failed"
         description: "Prometheus encountered {{ $value }} TSDB head truncation failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbReloadFailures
@@ -226,7 +226,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB reload failures (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB reload failures"
         description: "Prometheus encountered {{ $value }} TSDB reload failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbWalCorruptions
@@ -235,7 +235,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB WAL corruptions (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB WAL corruptions"
         description: "Prometheus encountered {{ $value }} TSDB WAL corruptions\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTsdbWalTruncationsFailed
@@ -244,7 +244,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Prometheus TSDB WAL truncations failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus TSDB WAL truncations failed"
         description: "Prometheus encountered {{ $value }} TSDB WAL truncation failures\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PrometheusTimeseriesCardinality
@@ -253,5 +253,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Prometheus timeseries cardinality (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Prometheus timeseries cardinality"
         description: "The \"{{ $labels.name }}\" timeseries cardinality is getting very high: {{ $value }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

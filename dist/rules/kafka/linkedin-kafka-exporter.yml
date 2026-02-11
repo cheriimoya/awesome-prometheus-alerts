@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Kafka topic offset decreased (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Kafka topic offset decreased"
         description: "Kafka topic offset has decreased\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: KafkaConsumerLag
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Kafka consumer lag (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Kafka consumer lag"
         description: "Kafka consumer has a 30 minutes and increasing lag\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

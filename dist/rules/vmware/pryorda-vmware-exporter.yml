@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Virtual Machine Memory Warning (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Virtual Machine Memory Warning"
         description: "High memory usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: VirtualMachineMemoryCritical
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Virtual Machine Memory Critical (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Virtual Machine Memory Critical"
         description: "High memory usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HighNumberOfSnapshots
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: High Number of Snapshots (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: High Number of Snapshots"
         description: "High snapshots number on {{ $labels.instance }}: {{ $value }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: OutdatedSnapshots
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Outdated Snapshots (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Outdated Snapshots"
         description: "Outdated snapshots on {{ $labels.instance }}: {{ $value | printf \"%.0f\"}} days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

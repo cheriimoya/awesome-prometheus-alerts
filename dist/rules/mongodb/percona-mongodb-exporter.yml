@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MongoDB Down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB Down"
         description: "MongoDB instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbReplicaMemberUnhealthy
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Mongodb replica member unhealthy (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Mongodb replica member unhealthy"
         description: "MongoDB replica member is not healthy\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbReplicationLag
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MongoDB replication lag (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB replication lag"
         description: "Mongodb replication lag is more than 10s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbReplicationHeadroom
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MongoDB replication headroom (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB replication headroom"
         description: "MongoDB replication headroom is <= 0\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbNumberCursorsOpen
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MongoDB number cursors open (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB number cursors open"
         description: "Too many cursors opened by MongoDB for clients (> 10k)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbCursorsTimeouts
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MongoDB cursors timeouts (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB cursors timeouts"
         description: "Too many cursors are timing out\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MongodbTooManyConnections
@@ -64,5 +64,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MongoDB too many connections (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MongoDB too many connections"
         description: "Too many connections (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

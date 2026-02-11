@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Bucket Replicate Error Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Bucket Replicate Error Rate"
         description: "Thanos Replicate is failing to run, {{$value | humanize}}% of attempts failed.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosBucketReplicateRunLatency
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Bucket Replicate Run Latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Bucket Replicate Run Latency"
         description: "Thanos Replicate {{$labels.job}} has a 99th percentile latency of {{$value}} seconds for the replicate operations.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

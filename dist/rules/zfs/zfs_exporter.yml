@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: ZFS pool out of space (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: ZFS pool out of space"
         description: "Disk is almost full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ZfsPoolUnhealthy
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: ZFS pool unhealthy (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: ZFS pool unhealthy"
         description: "ZFS pool state is {{ $value }}. See comments for more information.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ZfsCollectorFailed
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: ZFS collector failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: ZFS collector failed"
         description: "ZFS collector for {{ $labels.instance }} has failed to collect information\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: PGBouncer active connections (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: PGBouncer active connections"
         description: "PGBouncer pools are filling up\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PgbouncerErrors
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: PGBouncer errors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: PGBouncer errors"
         description: "PGBouncer is logging errors. This may be due to a a server restart or an admin typing commands at the pgbouncer console.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PgbouncerMaxConnections
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: PGBouncer max connections (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: PGBouncer max connections"
         description: "The number of PGBouncer client connections has reached max_client_conn.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

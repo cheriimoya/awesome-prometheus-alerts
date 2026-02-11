@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: SSL certificate probe failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SSL certificate probe failed"
         description: "Failed to fetch SSL information {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: SslCertificateOscpStatusUnknown
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SSL certificate OSCP status unknown (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SSL certificate OSCP status unknown"
         description: "Failed to get the OSCP status {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: SslCertificateRevoked
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: SSL certificate revoked (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SSL certificate revoked"
         description: "SSL certificate revoked {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: SslCertificateExpiry(<7Days)
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SSL certificate expiry (< 7 days) (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SSL certificate expiry (< 7 days)"
         description: "{{ $labels.instance }} Certificate is expiring in 7 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

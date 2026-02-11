@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Flux Kustomization Failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Flux Kustomization Failure"
         description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' in namespace {{ $labels.exported_namespace }} is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: FluxHelmreleaseFailure
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Flux HelmRelease Failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Flux HelmRelease Failure"
         description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' in namespace {{ $labels.exported_namespace }} is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: FluxSourceIssue
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Flux Source Issue (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Flux Source Issue"
         description: "Flux source {{ $labels.customresource_kind }} '{{ $labels.name }}' has issue(s).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: FluxImageIssue
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Flux Image Issue (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Flux Image Issue"
         description: "The {{ $labels.customresource_kind }} '{{ $labels.name }}' is marked as not ready.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

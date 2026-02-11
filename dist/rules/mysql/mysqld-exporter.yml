@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MySQL down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL down"
         description: "MySQL instance is down on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlTooManyConnections(>80%)
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL too many connections (> 80%) (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL too many connections (> 80%)"
         description: "More than 80% of MySQL connections are in use on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlHighPreparedStatementsUtilization(>80%)
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL high prepared statements utilization (> 80%) (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL high prepared statements utilization (> 80%)"
         description: "High utilization of prepared statements (>80%) on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlHighThreadsRunning
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL high threads running (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL high threads running"
         description: "More than 60% of MySQL connections are in running state on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlSlaveIoThreadNotRunning
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MySQL Slave IO thread not running (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL Slave IO thread not running"
         description: "MySQL Slave IO thread not running on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlSlaveSqlThreadNotRunning
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MySQL Slave SQL thread not running (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL Slave SQL thread not running"
         description: "MySQL Slave SQL thread not running on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlSlaveReplicationLag
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: MySQL Slave replication lag (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL Slave replication lag"
         description: "MySQL replication lag on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlSlowQueries
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL slow queries (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL slow queries"
         description: "MySQL server mysql has some new slow query.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlInnodbLogWaits
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL InnoDB log waits (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL InnoDB log waits"
         description: "MySQL innodb log writes stalling\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlRestarted
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: MySQL restarted (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL restarted"
         description: "MySQL has just been restarted, less than one minute ago on {{ $labels.instance }}.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlHighQps
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: MySQL High QPS (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL High QPS"
         description: "MySQL is being overload with unusual QPS (> 10k QPS).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlTooManyOpenFiles
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL too many open files (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL too many open files"
         description: "MySQL has too many open files, consider increase variables open_files_limit on {{ $labels.instance }}.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlInnodbForceRecoveryIsEnabled
@@ -118,7 +118,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL InnoDB Force Recovery is enabled (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL InnoDB Force Recovery is enabled"
         description: "MySQL InnoDB force recovery is enabled on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: MysqlInnodbHistory_lenTooLong
@@ -127,5 +127,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: MySQL InnoDB history_len too long (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: MySQL InnoDB history_len too long"
         description: "MySQL history_len (undo log) too long on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

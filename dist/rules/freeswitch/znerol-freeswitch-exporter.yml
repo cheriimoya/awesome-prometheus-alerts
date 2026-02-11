@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Freeswitch down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Freeswitch down"
         description: "Freeswitch is unresponsive\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: FreeswitchSessionsWarning
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Freeswitch Sessions Warning (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Freeswitch Sessions Warning"
         description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: FreeswitchSessionsCritical
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Freeswitch Sessions Critical (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Freeswitch Sessions Critical"
         description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

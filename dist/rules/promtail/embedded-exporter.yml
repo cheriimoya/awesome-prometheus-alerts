@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Promtail request errors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Promtail request errors"
         description: "The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}% errors.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: PromtailRequestLatency
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Promtail request latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Promtail request latency"
         description: "The {{ $labels.job }} {{ $labels.route }} is experiencing {{ printf \"%.2f\" $value }}s 99th percentile latency.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

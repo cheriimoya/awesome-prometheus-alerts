@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata high cpu usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata high cpu usage"
         description: "Netdata high CPU usage (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HostCpuStealNoisyNeighbor
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Host CPU steal noisy neighbor (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Host CPU steal noisy neighbor"
         description: "CPU steal is > 10%. A noisy neighbor is killing VM performances or a spot instance may be out of credit.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataHighMemoryUsage
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata high memory usage (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata high memory usage"
         description: "Netdata high memory usage (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataLowDiskSpace
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata low disk space (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata low disk space"
         description: "Netdata low disk space (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataPredictedDiskFull
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata predicted disk full (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata predicted disk full"
         description: "Netdata predicted disk full in 24 hours\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataMdMismatchCntUnsynchronizedBlocks
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata MD mismatch cnt unsynchronized blocks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata MD mismatch cnt unsynchronized blocks"
         description: "RAID Array have unsynchronized blocks\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataDiskReallocatedSectors
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Netdata disk reallocated sectors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata disk reallocated sectors"
         description: "Reallocated sectors on disk\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataDiskCurrentPendingSector
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata disk current pending sector (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata disk current pending sector"
         description: "Disk current pending sector\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: NetdataReportedUncorrectableDiskSectors
@@ -82,5 +82,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Netdata reported uncorrectable disk sectors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Netdata reported uncorrectable disk sectors"
         description: "Reported uncorrectable disk sectors\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

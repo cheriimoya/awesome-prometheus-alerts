@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Consul service healthcheck failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Consul service healthcheck failed"
         description: "Service: `{{ $labels.service_name }}` Healthcheck: `{{ $labels.service_id }}`\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ConsulMissingMasterNode
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Consul missing master node (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Consul missing master node"
         description: "Numbers of consul raft peers should be 3, in order to preserve quorum.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ConsulAgentUnhealthy
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Consul agent unhealthy (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Consul agent unhealthy"
         description: "A Consul agent is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch Heap Usage Too High (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Heap Usage Too High"
         description: "The heap usage is over 90%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHeapUsageWarning
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch Heap Usage warning (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Heap Usage warning"
         description: "The heap usage is over 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchDiskOutOfSpace
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch disk out of space (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch disk out of space"
         description: "The disk usage is over 90%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchDiskSpaceLow
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch disk space low (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch disk space low"
         description: "The disk usage is over 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchClusterRed
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch Cluster Red (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Cluster Red"
         description: "Elastic Cluster Red status\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchClusterYellow
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch Cluster Yellow (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Cluster Yellow"
         description: "Elastic Cluster Yellow status\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHealthyNodes
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch Healthy Nodes (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Healthy Nodes"
         description: "Missing node in Elasticsearch cluster\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHealthyDataNodes
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch Healthy Data Nodes (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch Healthy Data Nodes"
         description: "Missing data node in Elasticsearch cluster\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchRelocatingShards
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Elasticsearch relocating shards (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch relocating shards"
         description: "Elasticsearch is relocating shards\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchRelocatingShardsTooLong
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch relocating shards too long (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch relocating shards too long"
         description: "Elasticsearch has been relocating shards for 15min\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchInitializingShards
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: info
       annotations:
-        summary: Elasticsearch initializing shards (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch initializing shards"
         description: "Elasticsearch is initializing shards\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchInitializingShardsTooLong
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch initializing shards too long (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch initializing shards too long"
         description: "Elasticsearch has been initializing shards for 15 min\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchUnassignedShards
@@ -118,7 +118,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Elasticsearch unassigned shards (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch unassigned shards"
         description: "Elasticsearch has unassigned shards\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchPendingTasks
@@ -127,7 +127,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch pending tasks (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch pending tasks"
         description: "Elasticsearch has pending tasks. Cluster works slowly.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchNoNewDocuments
@@ -136,7 +136,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch no new documents (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch no new documents"
         description: "No new documents for 10 min!\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHighIndexingLatency
@@ -145,7 +145,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch High Indexing Latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch High Indexing Latency"
         description: "The indexing latency on Elasticsearch cluster is higher than the threshold.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHighIndexingRate
@@ -154,7 +154,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch High Indexing Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch High Indexing Rate"
         description: "The indexing rate on Elasticsearch cluster is higher than the threshold.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHighQueryRate
@@ -163,7 +163,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch High Query Rate (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch High Query Rate"
         description: "The query rate on Elasticsearch cluster is higher than the threshold.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ElasticsearchHighQueryLatency
@@ -172,5 +172,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Elasticsearch High Query Latency (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Elasticsearch High Query Latency"
         description: "The query latency on Elasticsearch cluster is higher than the threshold.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

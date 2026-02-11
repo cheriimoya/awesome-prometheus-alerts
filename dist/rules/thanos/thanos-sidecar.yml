@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar Bucket Operations Failed (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Sidecar Bucket Operations Failed"
         description: "Thanos Sidecar {{$labels.instance}} bucket operations are failing\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: ThanosSidecarNoConnectionToStartedPrometheus
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar No Connection To Started Prometheus (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: Thanos Sidecar No Connection To Started Prometheus"
         description: "Thanos Sidecar {{$labels.instance}} is unhealthy.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

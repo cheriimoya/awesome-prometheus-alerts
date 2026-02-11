@@ -10,7 +10,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SpeedTest Slow Internet Download (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SpeedTest Slow Internet Download"
         description: "Internet download speed is currently {{humanize $value}} Mbps.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: SpeedtestSlowInternetUpload
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SpeedTest Slow Internet Upload (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: SpeedTest Slow Internet Upload"
         description: "Internet upload speed is currently {{humanize $value}} Mbps.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+

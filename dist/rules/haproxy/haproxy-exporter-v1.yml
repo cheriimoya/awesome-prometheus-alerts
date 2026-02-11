@@ -10,7 +10,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy down"
         description: "HAProxy down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyHighHttp4xxErrorRateBackend
@@ -19,7 +19,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy high HTTP 4xx error rate backend (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy high HTTP 4xx error rate backend"
         description: "Too many HTTP requests with status 4xx (> 5%) on backend {{ $labels.fqdn }}/{{ $labels.backend }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyHighHttp5xxErrorRateBackend
@@ -28,7 +28,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy high HTTP 5xx error rate backend (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy high HTTP 5xx error rate backend"
         description: "Too many HTTP requests with status 5xx (> 5%) on backend {{ $labels.fqdn }}/{{ $labels.backend }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyHighHttp4xxErrorRateServer
@@ -37,7 +37,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy high HTTP 4xx error rate server (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy high HTTP 4xx error rate server"
         description: "Too many HTTP requests with status 4xx (> 5%) on server {{ $labels.server }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyHighHttp5xxErrorRateServer
@@ -46,7 +46,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy high HTTP 5xx error rate server (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy high HTTP 5xx error rate server"
         description: "Too many HTTP requests with status 5xx (> 5%) on server {{ $labels.server }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyServerResponseErrors
@@ -55,7 +55,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy server response errors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy server response errors"
         description: "Too many response errors to {{ $labels.server }} server (> 5%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyBackendConnectionErrors
@@ -64,7 +64,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy backend connection errors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy backend connection errors"
         description: "Too many connection errors to {{ $labels.fqdn }}/{{ $labels.backend }} backend (> 100 req/s). Request throughput may be too high.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyServerConnectionErrors
@@ -73,7 +73,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy server connection errors (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy server connection errors"
         description: "Too many connection errors to {{ $labels.server }} server (> 100 req/s). Request throughput may be too high.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyBackendMaxActiveSession
@@ -82,7 +82,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy backend max active session (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy backend max active session"
         description: "HAproxy backend {{ $labels.fqdn }}/{{ $labels.backend }} is reaching session limit (> 80%).\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyPendingRequests
@@ -91,7 +91,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy pending requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy pending requests"
         description: "Some HAProxy requests are pending on {{ $labels.fqdn }}/{{ $labels.backend }} backend\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyHttpSlowingDown
@@ -100,7 +100,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy HTTP slowing down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy HTTP slowing down"
         description: "Average request time is increasing\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyRetryHigh
@@ -109,7 +109,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy retry high (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy retry high"
         description: "High rate of retry on {{ $labels.fqdn }}/{{ $labels.backend }} backend\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyBackendDown
@@ -118,7 +118,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy backend down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy backend down"
         description: "HAProxy backend is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyServerDown
@@ -127,7 +127,7 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: HAProxy server down (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy server down"
         description: "HAProxy server is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyFrontendSecurityBlockedRequests
@@ -136,7 +136,7 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy frontend security blocked requests (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy frontend security blocked requests"
         description: "HAProxy is blocking requests for security reason\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
     - alert: HaproxyServerHealthcheckFailure
@@ -145,5 +145,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: HAProxy server healthcheck failure (instance {{ $labels.instance }})
+        summary: "{{ $labels.alias }}: HAProxy server healthcheck failure"
         description: "Some server healthcheck are failing on {{ $labels.server }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
