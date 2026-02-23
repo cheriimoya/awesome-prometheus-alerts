@@ -12,5 +12,5 @@ groups:
         severity: {{ rule.severity }}
       annotations:
         summary: "{% if rule.summary %}{{ rule.summary }}{% else %}{% raw %}{{ $labels.alias }}{% endraw %}: {{ rule.name }}{% endif %}"
-        description: "{{ rule.description | replace: '"', '\"' }}\n  VALUE = {% raw %}{{ $value }}{% endraw %}\n  LABELS = {% raw %}{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}{% endraw %}"
+        description: "{{ rule.description | replace: '"', '\"' }}\nVALUE = {% raw %}{{ $value }}{% endraw %}\n{% raw %}{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}{% endraw %}"
 {% endfor %}
