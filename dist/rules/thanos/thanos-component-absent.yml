@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Compact Is Down (instance {{ $labels.instance }})
-        description: "ThanosCompact has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Compact Is Down"
+        description: "ThanosCompact has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosQueryIsDown
       expr: 'absent(up{job=~".*thanos-query.*"} == 1)'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Query Is Down (instance {{ $labels.instance }})
-        description: "ThanosQuery has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Query Is Down"
+        description: "ThanosQuery has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosReceiveIsDown
       expr: 'absent(up{job=~".*thanos-receive.*"} == 1)'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Receive Is Down (instance {{ $labels.instance }})
-        description: "ThanosReceive has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Receive Is Down"
+        description: "ThanosReceive has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosRuleIsDown
       expr: 'absent(up{job=~".*thanos-rule.*"} == 1)'
@@ -37,8 +37,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Rule Is Down (instance {{ $labels.instance }})
-        description: "ThanosRule has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Rule Is Down"
+        description: "ThanosRule has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosSidecarIsDown
       expr: 'absent(up{job=~".*thanos-sidecar.*"} == 1)'
@@ -46,8 +46,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar Is Down (instance {{ $labels.instance }})
-        description: "ThanosSidecar has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Sidecar Is Down"
+        description: "ThanosSidecar has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosStoreIsDown
       expr: 'absent(up{job=~".*thanos-store.*"} == 1)'
@@ -55,5 +55,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Store Is Down (instance {{ $labels.instance }})
-        description: "ThanosStore has disappeared. Prometheus target for the component cannot be discovered.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Store Is Down"
+        description: "ThanosStore has disappeared. Prometheus target for the component cannot be discovered.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

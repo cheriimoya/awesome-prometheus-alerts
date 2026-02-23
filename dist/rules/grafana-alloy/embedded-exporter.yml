@@ -10,5 +10,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Grafana Alloy service down (instance {{ $labels.instance }})
-        description: "Alloy on (instance {{ $labels.instance }}) is not responding or has stopped running.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Grafana Alloy service down"
+        description: "Alloy is not responding or has stopped running.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

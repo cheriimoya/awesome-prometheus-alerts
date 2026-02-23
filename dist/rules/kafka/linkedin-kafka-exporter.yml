@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Kafka topic offset decreased (instance {{ $labels.instance }})
-        description: "Kafka topic offset has decreased\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Kafka topic offset decreased"
+        description: "Kafka topic offset has decreased\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: KafkaConsumerLag
       expr: 'kafka_burrow_topic_partition_offset - on(partition, cluster, topic) group_right() kafka_burrow_partition_current_offset >= (kafka_burrow_topic_partition_offset offset 15m - on(partition, cluster, topic) group_right() kafka_burrow_partition_current_offset offset 15m) AND kafka_burrow_topic_partition_offset - on(partition, cluster, topic) group_right() kafka_burrow_partition_current_offset > 0'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Kafka consumer lag (instance {{ $labels.instance }})
-        description: "Kafka consumer has a 30 minutes and increasing lag\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Kafka consumer lag"
+        description: "Kafka consumer has a 30 minutes and increasing lag\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

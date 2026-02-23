@@ -10,5 +10,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: JVM memory filling up (instance {{ $labels.instance }})
-        description: "JVM memory is filling up (> 80%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: JVM memory filling up"
+        description: "JVM memory is filling up (> 80%)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

@@ -10,5 +10,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: OpenEBS used pool capacity (instance {{ $labels.instance }})
-        description: "OpenEBS Pool use more than 80% of his capacity\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: OpenEBS used pool capacity"
+        description: "OpenEBS Pool use more than 80% of his capacity\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

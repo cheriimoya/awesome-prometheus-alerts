@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Zookeeper Down (instance {{ $labels.instance }})
-        description: "Zookeeper down on instance {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Zookeeper Down"
+        description: "Zookeeper down on instance {{ $labels.instance }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ZookeeperMissingLeader
       expr: 'sum(zk_server_leader) == 0'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Zookeeper missing leader (instance {{ $labels.instance }})
-        description: "Zookeeper cluster has no node marked as leader\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Zookeeper missing leader"
+        description: "Zookeeper cluster has no node marked as leader\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ZookeeperTooManyLeaders
       expr: 'sum(zk_server_leader) > 1'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Zookeeper Too Many Leaders (instance {{ $labels.instance }})
-        description: "Zookeeper cluster has too many nodes marked as leader\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Zookeeper Too Many Leaders"
+        description: "Zookeeper cluster has too many nodes marked as leader\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ZookeeperNotOk
       expr: 'zk_ruok == 0'
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Zookeeper Not Ok (instance {{ $labels.instance }})
-        description: "Zookeeper instance is not ok\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Zookeeper Not Ok"
+        description: "Zookeeper instance is not ok\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Freeswitch down (instance {{ $labels.instance }})
-        description: "Freeswitch is unresponsive\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Freeswitch down"
+        description: "Freeswitch is unresponsive\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: FreeswitchSessionsWarning
       expr: '(freeswitch_session_active * 100 / freeswitch_session_limit) > 80'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Freeswitch Sessions Warning (instance {{ $labels.instance }})
-        description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Freeswitch Sessions Warning"
+        description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: FreeswitchSessionsCritical
       expr: '(freeswitch_session_active * 100 / freeswitch_session_limit) > 90'
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Freeswitch Sessions Critical (instance {{ $labels.instance }})
-        description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Freeswitch Sessions Critical"
+        description: "High sessions usage on {{ $labels.instance }}: {{ $value | printf \"%.2f\"}}%\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

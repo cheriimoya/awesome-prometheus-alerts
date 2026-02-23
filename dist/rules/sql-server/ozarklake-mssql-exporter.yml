@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: SQL Server down (instance {{ $labels.instance }})
-        description: "SQL server instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SQL Server down"
+        description: "SQL server instance is down\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SqlServerDeadlock
       expr: 'increase(mssql_deadlocks[1m]) > 5'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SQL Server deadlock (instance {{ $labels.instance }})
-        description: "SQL Server is having some deadlock.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SQL Server deadlock"
+        description: "SQL Server is having some deadlock.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

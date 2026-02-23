@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Sidekiq queue size (instance {{ $labels.instance }})
-        description: "Sidekiq queue {{ $labels.name }} is growing\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Sidekiq queue size"
+        description: "Sidekiq queue {{ $labels.name }} is growing\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SidekiqSchedulingLatencyTooHigh
       expr: 'max(sidekiq_queue_latency) > 60'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Sidekiq scheduling latency too high (instance {{ $labels.instance }})
-        description: "Sidekiq jobs are taking more than 1min to be picked up. Users may be seeing delays in background processing.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Sidekiq scheduling latency too high"
+        description: "Sidekiq jobs are taking more than 1min to be picked up. Users may be seeing delays in background processing.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

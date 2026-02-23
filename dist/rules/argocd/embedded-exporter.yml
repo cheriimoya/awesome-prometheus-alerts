@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: ArgoCD service not synced (instance {{ $labels.instance }})
-        description: "Service {{ $labels.name }} run by argo is currently not in sync.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: ArgoCD service not synced"
+        description: "Service {{ $labels.name }} run by argo is currently not in sync.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ArgocdServiceUnhealthy
       expr: 'argocd_app_info{health_status!="Healthy"} != 0'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: ArgoCD service unhealthy (instance {{ $labels.instance }})
-        description: "Service {{ $labels.name }} run by argo is currently not healthy.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: ArgoCD service unhealthy"
+        description: "Service {{ $labels.name }} run by argo is currently not healthy.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

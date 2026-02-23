@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar Bucket Operations Failed (instance {{ $labels.instance }})
-        description: "Thanos Sidecar {{$labels.instance}} bucket operations are failing\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Sidecar Bucket Operations Failed"
+        description: "Thanos Sidecar {{$labels.instance}} bucket operations are failing\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ThanosSidecarNoConnectionToStartedPrometheus
       expr: 'thanos_sidecar_prometheus_up{job=~".*thanos-sidecar.*"} == 0 and on (namespace, pod)prometheus_tsdb_data_replay_duration_seconds != 0'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Thanos Sidecar No Connection To Started Prometheus (instance {{ $labels.instance }})
-        description: "Thanos Sidecar {{$labels.instance}} is unhealthy.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Thanos Sidecar No Connection To Started Prometheus"
+        description: "Thanos Sidecar {{$labels.instance}} is unhealthy.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

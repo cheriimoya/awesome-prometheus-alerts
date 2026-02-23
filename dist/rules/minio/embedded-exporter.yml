@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Minio cluster disk offline (instance {{ $labels.instance }})
-        description: "Minio cluster disk is offline\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Minio cluster disk offline"
+        description: "Minio cluster disk is offline\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: MinioNodeDiskOffline
       expr: 'minio_cluster_nodes_offline_total > 0'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Minio node disk offline (instance {{ $labels.instance }})
-        description: "Minio cluster node disk is offline\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Minio node disk offline"
+        description: "Minio cluster node disk is offline\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: MinioDiskSpaceUsage
       expr: 'disk_storage_available / disk_storage_total * 100 < 10'
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Minio disk space usage (instance {{ $labels.instance }})
-        description: "Minio available free space is low (< 10%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Minio disk space usage"
+        description: "Minio available free space is low (< 10%)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

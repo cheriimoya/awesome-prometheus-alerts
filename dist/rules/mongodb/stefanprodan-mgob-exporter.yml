@@ -10,5 +10,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Mgob backup failed (instance {{ $labels.instance }})
-        description: "MongoDB backup has failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Mgob backup failed"
+        description: "MongoDB backup has failed\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

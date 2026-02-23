@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: PGBouncer active connections (instance {{ $labels.instance }})
-        description: "PGBouncer pools are filling up\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: PGBouncer active connections"
+        description: "PGBouncer pools are filling up\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: PgbouncerErrors
       expr: 'increase(pgbouncer_errors_count{errmsg!="server conn crashed?"}[1m]) > 10'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: PGBouncer errors (instance {{ $labels.instance }})
-        description: "PGBouncer is logging errors. This may be due to a a server restart or an admin typing commands at the pgbouncer console.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: PGBouncer errors"
+        description: "PGBouncer is logging errors. This may be due to a a server restart or an admin typing commands at the pgbouncer console.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: PgbouncerMaxConnections
       expr: 'increase(pgbouncer_errors_count{errmsg="no more connections allowed (max_client_conn)"}[30s]) > 0'
@@ -28,5 +28,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: PGBouncer max connections (instance {{ $labels.instance }})
-        description: "The number of PGBouncer client connections has reached max_client_conn.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: PGBouncer max connections"
+        description: "The number of PGBouncer client connections has reached max_client_conn.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

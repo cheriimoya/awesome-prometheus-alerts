@@ -10,5 +10,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: ZFS offline pool (instance {{ $labels.instance }})
-        description: "A ZFS zpool is in a unexpected state: {{ $labels.state }}.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: ZFS offline pool"
+        description: "A ZFS zpool is in a unexpected state: {{ $labels.state }}.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

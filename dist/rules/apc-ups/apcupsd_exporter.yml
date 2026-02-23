@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: APC UPS Battery nearly empty (instance {{ $labels.instance }})
-        description: "Battery is almost empty (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS Battery nearly empty"
+        description: "Battery is almost empty (< 10% left)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ApcUpsLessThan15MinutesOfBatteryTimeRemaining
       expr: 'apcupsd_battery_time_left_seconds < 900'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: APC UPS Less than 15 Minutes of battery time remaining (instance {{ $labels.instance }})
-        description: "Battery is almost empty (< 15 Minutes remaining)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS Less than 15 Minutes of battery time remaining"
+        description: "Battery is almost empty (< 15 Minutes remaining)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ApcUpsAcInputOutage
       expr: 'apcupsd_battery_time_on_seconds > 0'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: APC UPS AC input outage (instance {{ $labels.instance }})
-        description: "UPS now running on battery (since {{$value | humanizeDuration}})\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS AC input outage"
+        description: "UPS now running on battery (since {{$value | humanizeDuration}})\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ApcUpsLowBatteryVoltage
       expr: '(apcupsd_battery_volts / apcupsd_battery_nominal_volts) < 0.95'
@@ -37,8 +37,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: APC UPS low battery voltage (instance {{ $labels.instance }})
-        description: "Battery voltage is lower than nominal (< 95%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS low battery voltage"
+        description: "Battery voltage is lower than nominal (< 95%)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ApcUpsHighTemperature
       expr: 'apcupsd_internal_temperature_celsius >= 40'
@@ -46,8 +46,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: APC UPS high temperature (instance {{ $labels.instance }})
-        description: "Internal temperature is high ({{$value}}°C)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS high temperature"
+        description: "Internal temperature is high ({{$value}}°C)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: ApcUpsHighLoad
       expr: 'apcupsd_ups_load_percent > 80'
@@ -55,5 +55,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: APC UPS high load (instance {{ $labels.instance }})
-        description: "UPS load is > 80%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: APC UPS high load"
+        description: "UPS load is > 80%\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

@@ -10,5 +10,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Patroni has no Leader (instance {{ $labels.instance }})
-        description: "A leader node (neither primary nor standby) cannot be found inside the cluster {{ $labels.scope }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Patroni has no Leader"
+        description: "A leader node (neither primary nor standby) cannot be found inside the cluster {{ $labels.scope }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

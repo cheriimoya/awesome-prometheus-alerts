@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: SSL certificate probe failed (instance {{ $labels.instance }})
-        description: "Failed to fetch SSL information {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SSL certificate probe failed"
+        description: "Failed to fetch SSL information {{ $labels.instance }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SslCertificateOscpStatusUnknown
       expr: 'ssl_ocsp_response_status == 2'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SSL certificate OSCP status unknown (instance {{ $labels.instance }})
-        description: "Failed to get the OSCP status {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SSL certificate OSCP status unknown"
+        description: "Failed to get the OSCP status {{ $labels.instance }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SslCertificateRevoked
       expr: 'ssl_ocsp_response_status == 1'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: SSL certificate revoked (instance {{ $labels.instance }})
-        description: "SSL certificate revoked {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SSL certificate revoked"
+        description: "SSL certificate revoked {{ $labels.instance }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SslCertificateExpiry(<7Days)
       expr: 'ssl_verified_cert_not_after{chain_no="0"} - time() < 86400 * 7'
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SSL certificate expiry (< 7 days) (instance {{ $labels.instance }})
-        description: "{{ $labels.instance }} Certificate is expiring in 7 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SSL certificate expiry (< 7 days)"
+        description: "{{ $labels.instance }} Certificate is expiring in 7 days\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

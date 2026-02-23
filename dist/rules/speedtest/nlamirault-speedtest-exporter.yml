@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SpeedTest Slow Internet Download (instance {{ $labels.instance }})
-        description: "Internet download speed is currently {{humanize $value}} Mbps.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SpeedTest Slow Internet Download"
+        description: "Internet download speed is currently {{humanize $value}} Mbps.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: SpeedtestSlowInternetUpload
       expr: 'avg_over_time(speedtest_upload[10m]) < 20'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: SpeedTest Slow Internet Upload (instance {{ $labels.instance }})
-        description: "Internet upload speed is currently {{humanize $value}} Mbps.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: SpeedTest Slow Internet Upload"
+        description: "Internet upload speed is currently {{humanize $value}} Mbps.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Meilisearch index is empty (instance {{ $labels.instance }})
-        description: "Meilisearch instance is down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Meilisearch index is empty"
+        description: "Meilisearch instance is down\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: MeilisearchHttpResponseTime
       expr: 'meilisearch_http_response_time_seconds > 0.5'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Meilisearch http response time (instance {{ $labels.instance }})
-        description: "Meilisearch http response time is too high\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Meilisearch http response time"
+        description: "Meilisearch http response time is too high\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

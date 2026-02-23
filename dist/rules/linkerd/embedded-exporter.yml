@@ -10,5 +10,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Linkerd high error rate (instance {{ $labels.instance }})
-        description: "Linkerd error rate for {{ $labels.deployment | $labels.statefulset | $labels.daemonset }} is over 10%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Linkerd high error rate"
+        description: "Linkerd error rate for {{ $labels.deployment | $labels.statefulset | $labels.daemonset }} is over 10%\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

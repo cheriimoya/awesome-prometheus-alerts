@@ -10,8 +10,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job failed (instance {{ $labels.instance }})
-        description: "Nomad job failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Nomad job failed"
+        description: "Nomad job failed\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: NomadJobLost
       expr: 'nomad_nomad_job_summary_lost > 0'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job lost (instance {{ $labels.instance }})
-        description: "Nomad job lost\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Nomad job lost"
+        description: "Nomad job lost\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: NomadJobQueued
       expr: 'nomad_nomad_job_summary_queued > 0'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad job queued (instance {{ $labels.instance }})
-        description: "Nomad job queued\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Nomad job queued"
+        description: "Nomad job queued\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: NomadBlockedEvaluation
       expr: 'nomad_nomad_blocked_evals_total_blocked > 0'
@@ -37,5 +37,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Nomad blocked evaluation (instance {{ $labels.instance }})
-        description: "Nomad blocked evaluation\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Nomad blocked evaluation"
+        description: "Nomad blocked evaluation\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

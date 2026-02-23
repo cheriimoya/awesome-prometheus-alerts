@@ -10,5 +10,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: PHP-FPM max-children reached (instance {{ $labels.instance }})
-        description: "PHP-FPM reached max children - {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: PHP-FPM max-children reached"
+        description: "PHP-FPM reached max children - {{ $labels.instance }}\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

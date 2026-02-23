@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Kafka topics replicas (instance {{ $labels.instance }})
-        description: "Kafka topic in-sync partition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Kafka topics replicas"
+        description: "Kafka topic in-sync partition\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: KafkaConsumersGroup
       expr: 'sum(kafka_consumergroup_lag) by (consumergroup) > 50'
@@ -19,5 +19,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Kafka consumers group (instance {{ $labels.instance }})
-        description: "Kafka consumers group\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Kafka consumers group"
+        description: "Kafka consumers group\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

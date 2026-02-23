@@ -10,8 +10,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Name Node Down (instance {{ $labels.instance }})
-        description: "The Hadoop NameNode service is unavailable.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop Name Node Down"
+        description: "The Hadoop NameNode service is unavailable.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopResourceManagerDown
       expr: 'up{job="hadoop-resourcemanager"} == 0'
@@ -19,8 +19,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Resource Manager Down (instance {{ $labels.instance }})
-        description: "The Hadoop ResourceManager service is unavailable.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop Resource Manager Down"
+        description: "The Hadoop ResourceManager service is unavailable.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopDataNodeOutOfService
       expr: 'hadoop_datanode_last_heartbeat == 0'
@@ -28,8 +28,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop Data Node Out Of Service (instance {{ $labels.instance }})
-        description: "The Hadoop DataNode is not sending heartbeats.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop Data Node Out Of Service"
+        description: "The Hadoop DataNode is not sending heartbeats.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopHdfsDiskSpaceLow
       expr: '(hadoop_hdfs_bytes_total - hadoop_hdfs_bytes_used) / hadoop_hdfs_bytes_total < 0.1'
@@ -37,8 +37,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HDFS Disk Space Low (instance {{ $labels.instance }})
-        description: "Available HDFS disk space is running low.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop HDFS Disk Space Low"
+        description: "Available HDFS disk space is running low.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopMapReduceTaskFailures
       expr: 'hadoop_mapreduce_task_failures_total > 100'
@@ -46,8 +46,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop Map Reduce Task Failures (instance {{ $labels.instance }})
-        description: "There is an unusually high number of MapReduce task failures.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop Map Reduce Task Failures"
+        description: "There is an unusually high number of MapReduce task failures.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopResourceManagerMemoryHigh
       expr: 'hadoop_resourcemanager_memory_bytes / hadoop_resourcemanager_memory_max_bytes > 0.8'
@@ -55,8 +55,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop Resource Manager Memory High (instance {{ $labels.instance }})
-        description: "The Hadoop ResourceManager is approaching its memory limit.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop Resource Manager Memory High"
+        description: "The Hadoop ResourceManager is approaching its memory limit.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopYarnContainerAllocationFailures
       expr: 'hadoop_yarn_container_allocation_failures_total > 10'
@@ -64,8 +64,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop YARN Container Allocation Failures (instance {{ $labels.instance }})
-        description: "There is a significant number of YARN container allocation failures.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop YARN Container Allocation Failures"
+        description: "There is a significant number of YARN container allocation failures.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopHbaseRegionCountHigh
       expr: 'hadoop_hbase_region_count > 5000'
@@ -73,8 +73,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HBase Region Count High (instance {{ $labels.instance }})
-        description: "The HBase cluster has an unusually high number of regions.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop HBase Region Count High"
+        description: "The HBase cluster has an unusually high number of regions.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopHbaseRegionServerHeapLow
       expr: 'hadoop_hbase_region_server_heap_bytes / hadoop_hbase_region_server_max_heap_bytes < 0.2'
@@ -82,8 +82,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Hadoop HBase Region Server Heap Low (instance {{ $labels.instance }})
-        description: "HBase Region Servers are running low on heap space.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop HBase Region Server Heap Low"
+        description: "HBase Region Servers are running low on heap space.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: HadoopHbaseWriteRequestsLatencyHigh
       expr: 'hadoop_hbase_write_requests_latency_seconds > 0.5'
@@ -91,5 +91,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Hadoop HBase Write Requests Latency High (instance {{ $labels.instance }})
-        description: "HBase Write Requests are experiencing high latency.\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: Hadoop HBase Write Requests Latency High"
+        description: "HBase Write Requests are experiencing high latency.\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

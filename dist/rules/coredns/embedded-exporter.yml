@@ -10,5 +10,6 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: CoreDNS Panic Count (instance {{ $labels.instance }})
-        description: "Number of CoreDNS panics encountered\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{% if $labels.alias %}{{ $labels.alias }}{% else %}{{ $labels.instance }}: CoreDNS Panic Count"
+        description: "Number of CoreDNS panics encountered\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+
