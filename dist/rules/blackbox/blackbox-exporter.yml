@@ -11,8 +11,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Blackbox probe failed (instance {{ $labels.instance }})
-        description: "Probe failed\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox probe failed"
+        description: "Probe failed\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxConfigurationReloadFailure
       expr: 'blackbox_exporter_config_last_reload_successful != 1'
@@ -20,8 +20,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Blackbox configuration reload failure (instance {{ $labels.instance }})
-        description: "Blackbox configuration reload failure\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox configuration reload failure"
+        description: "Blackbox configuration reload failure\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxSlowProbe
       expr: 'avg_over_time(probe_duration_seconds[1m]) > 1'
@@ -29,8 +29,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Blackbox slow probe (instance {{ $labels.instance }})
-        description: "Blackbox probe took more than 1s to complete\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox slow probe"
+        description: "Blackbox probe took more than 1s to complete\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxProbeHttpFailure
       expr: 'probe_http_status_code <= 199 OR probe_http_status_code >= 400'
@@ -38,8 +38,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Blackbox probe HTTP failure (instance {{ $labels.instance }})
-        description: "HTTP status code is not 200-399\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox probe HTTP failure"
+        description: "HTTP status code is not 200-399\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxSslCertificateWillExpireSoon
       expr: '3 <= round((last_over_time(probe_ssl_earliest_cert_expiry[10m]) - time()) / 86400, 0.1) < 20'
@@ -47,8 +47,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})
-        description: "SSL certificate expires in less than 20 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox SSL certificate will expire soon"
+        description: "SSL certificate expires in less than 20 days\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxSslCertificateWillExpireSoon
       expr: '0 <= round((last_over_time(probe_ssl_earliest_cert_expiry[10m]) - time()) / 86400, 0.1) < 3'
@@ -56,8 +56,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Blackbox SSL certificate will expire soon (instance {{ $labels.instance }})
-        description: "SSL certificate expires in less than 3 days\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox SSL certificate will expire soon"
+        description: "SSL certificate expires in less than 3 days\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # For probe_ssl_earliest_cert_expiry to be exposed after expiration, you
     # need to enable insecure_skip_verify. Note that this will disable
@@ -69,8 +69,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: Blackbox SSL certificate expired (instance {{ $labels.instance }})
-        description: "SSL certificate has expired already\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox SSL certificate expired"
+        description: "SSL certificate has expired already\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxProbeSlowHttp
       expr: 'avg_over_time(probe_http_duration_seconds[1m]) > 1'
@@ -78,8 +78,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Blackbox probe slow HTTP (instance {{ $labels.instance }})
-        description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox probe slow HTTP"
+        description: "HTTP request took more than 1s\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: BlackboxProbeSlowPing
       expr: 'avg_over_time(probe_icmp_duration_seconds[1m]) > 1'
@@ -87,5 +87,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: Blackbox probe slow ping (instance {{ $labels.instance }})
-        description: "Blackbox ping took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Blackbox probe slow ping"
+        description: "Blackbox ping took more than 1s\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

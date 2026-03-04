@@ -11,8 +11,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: RabbitMQ down (instance {{ $labels.instance }})
-        description: "RabbitMQ node down\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ down"
+        description: "RabbitMQ node down\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: RabbitmqClusterDown
       expr: 'sum(rabbitmq_running) < 3'
@@ -20,8 +20,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: RabbitMQ cluster down (instance {{ $labels.instance }})
-        description: "Less than 3 nodes running in RabbitMQ cluster\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ cluster down"
+        description: "Less than 3 nodes running in RabbitMQ cluster\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: RabbitmqClusterPartition
       expr: 'rabbitmq_partitions > 0'
@@ -29,8 +29,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: RabbitMQ cluster partition (instance {{ $labels.instance }})
-        description: "Cluster partition\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ cluster partition"
+        description: "Cluster partition\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: RabbitmqOutOfMemory
       expr: 'rabbitmq_node_mem_used / rabbitmq_node_mem_limit * 100 > 90'
@@ -38,8 +38,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ out of memory (instance {{ $labels.instance }})
-        description: "Memory available for RabbmitMQ is low (< 10%)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ out of memory"
+        description: "Memory available for RabbmitMQ is low (< 10%)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: RabbitmqTooManyConnections
       expr: 'rabbitmq_connectionsTotal > 1000'
@@ -47,8 +47,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ too many connections (instance {{ $labels.instance }})
-        description: "RabbitMQ instance has too many connections (> 1000)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ too many connections"
+        description: "RabbitMQ instance has too many connections (> 1000)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # Indicate the queue name in dedicated label.
     - alert: RabbitmqDeadLetterQueueFillingUp
@@ -57,8 +57,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ dead letter queue filling up (instance {{ $labels.instance }})
-        description: "Dead letter queue is filling up (> 10 msgs)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ dead letter queue filling up"
+        description: "Dead letter queue is filling up (> 10 msgs)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # Indicate the queue name in dedicated label.
     - alert: RabbitmqTooManyMessagesInQueue
@@ -67,8 +67,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ too many messages in queue (instance {{ $labels.instance }})
-        description: "Queue is filling up (> 1000 msgs)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ too many messages in queue"
+        description: "Queue is filling up (> 1000 msgs)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # Indicate the queue name in dedicated label.
     - alert: RabbitmqSlowQueueConsuming
@@ -77,8 +77,8 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ slow queue consuming (instance {{ $labels.instance }})
-        description: "Queue messages are consumed slowly (> 60s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ slow queue consuming"
+        description: "Queue messages are consumed slowly (> 60s)\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     - alert: RabbitmqNoConsumer
       expr: 'rabbitmq_queue_consumers == 0'
@@ -86,8 +86,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: RabbitMQ no consumer (instance {{ $labels.instance }})
-        description: "Queue has no consumer\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ no consumer"
+        description: "Queue has no consumer\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # Indicate the queue name in dedicated label.
     - alert: RabbitmqTooManyConsumers
@@ -96,8 +96,8 @@ groups:
       labels:
         severity: critical
       annotations:
-        summary: RabbitMQ too many consumers (instance {{ $labels.instance }})
-        description: "Queue should have only 1 consumer\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ too many consumers"
+        description: "Queue should have only 1 consumer\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
 
     # Indicate the exchange name in dedicated label.
     - alert: RabbitmqUnactiveExchange
@@ -106,5 +106,6 @@ groups:
       labels:
         severity: warning
       annotations:
-        summary: RabbitMQ unactive exchange (instance {{ $labels.instance }})
-        description: "Exchange receive less than 5 msgs per second\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: RabbitMQ unactive exchange"
+        description: "Exchange receive less than 5 msgs per second\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+

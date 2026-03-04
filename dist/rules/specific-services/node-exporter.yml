@@ -1,0 +1,25 @@
+groups:
+
+- name: NodeExporter
+
+  
+  rules:
+
+    - alert: MatrixNotRunning
+      expr: '(node_systemd_unit_state{name="matrix-synapse.service", state="inactive"} == 1)'
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Matrix not running"
+        description: "Matrix is not running\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+
+    - alert: MatrixBridgeNotRunning
+      expr: '(node_systemd_unit_state{name=~"mautrix-.*.service", state="inactive"} == 1)'
+      for: 0m
+      labels:
+        severity: critical
+      annotations:
+        summary: "{{ if $labels.alias }}{{ $labels.alias }}{{ else }}{{ $labels.instance }}{{ end }}: Matrix bridge not running"
+        description: "A matrix bridge is not running\nVALUE = {{ $value }}\n{{ range $k, $v := $labels }}{{ $k }}=\"{{ $v }}\" {{ end }}"
+
