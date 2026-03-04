@@ -7,6 +7,21 @@
 #
 
 groups:
+  - name: Custom confnix stuff
+    services:
+      - name: Specific services
+        exporters:
+          - slug: node-exporter
+            rules:
+              - name: Matrix not running
+                description: Matrix is not running
+                query: '(node_systemd_unit_state{name="matrix-synapse.service", state="inactive"} == 1)'
+                severity: critical
+              - name: Matrix bridge not running
+                description: A matrix bridge is not running
+                query: '(node_systemd_unit_state{name=~"mautrix-.*.service", state="inactive"} == 1)'
+                severity: critical
+
   - name: Basic resource monitoring
     services:
       - name: Prometheus self-monitoring
